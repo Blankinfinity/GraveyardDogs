@@ -1,0 +1,28 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar><img style="height:90%;width:57%;" src="/assets/images/msf-logo.png"></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/roster">Roster</a>
+      <a mat-list-item routerLink="/raid">Raids</a>
+      <a mat-list-item routerLink="/war">War</a>
+      <a mat-list-item routerLink="/all-characters">Characters</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Graveyard Dogs - Marvel S.T.R.I.K.E Force Alliance</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
