@@ -11,7 +11,7 @@ import { WarComponent } from './war/war.component';
 import { RosterComponent } from './roster/roster.component';
 import { RaidComponent } from './raid/raid.component';
 import { WelcomeComponent } from './layout/welcome/welcome.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './account/login/login.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { CreateCharacterComponent } from './create-character/create-character.component';
 import { AllCharactersComponent } from './all-characters/all-characters.component';

@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'war', component: WarComponent },
   { path: 'roster', component: RosterComponent },
   { path: 'raid', component: RaidComponent },
-  { path: 'all-characters', component: AllCharactersComponent, pathMatch: 'full' }];
+  { path: 'all-characters', component: AllCharactersComponent, pathMatch: 'full' },
+{ path: 'account', loadChildren: './account/account.module#AccountModule' }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

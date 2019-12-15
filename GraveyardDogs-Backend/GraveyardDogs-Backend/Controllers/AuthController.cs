@@ -1,6 +1,7 @@
 ﻿using GraveyardDogs_Backend.Auth;
 using GraveyardDogs_Backend.Helpers;
 using GraveyardDogs_Backend.Models;
+using GraveyardDogs_Backend.Models.Entities;
 using GraveyardDogs_Backend.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,12 @@ namespace GraveyardDogs_Backend.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<CustomUser> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly JwtIssuerOptions _jwtOptions;
 
-        public AuthController(UserManager<AppUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(UserManager<CustomUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
@@ -73,7 +74,7 @@ namespace GraveyardDogs_Backend.Controllers
                     // check the credentials  
                     if (await _userManager.CheckPasswordAsync(userToVerify, password))
                     {
-                        return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
+                        return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id.ToString()));
                     }
                 }
             }

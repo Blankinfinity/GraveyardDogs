@@ -26,4 +26,3 @@ namespace GraveyardDogs_Backend.Helpers
         }
     }
 }
-}
