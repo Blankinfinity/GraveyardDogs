@@ -60,6 +60,16 @@ namespace GraveyardDogs_Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add the CORS services
+            services.AddCors();
+
+            services.AddCors(o => o.AddPolicy("AllowAllOrigins", p =>
+            {
+                p.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             services.ConfigureDapperConnectionProvider<SqlServerConnectionProvider>(Configuration.GetSection("DapperIdentity"))
                     .ConfigureDapperIdentityCryptography(Configuration.GetSection("DapperIdentityCryptography"))
                     .ConfigureDapperIdentityOptions(new DapperIdentityOptions { UseTransactionalBehavior = false }); //Change to True to use Transactions in all operations
@@ -116,6 +126,9 @@ namespace GraveyardDogs_Backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // IMPORTANT: Make sure application.UseCors() is called BEFORE application.UseMvc()
+            app.UseCors("AllowAllOrigins");
 
             app.UseExceptionHandler(
             builder =>

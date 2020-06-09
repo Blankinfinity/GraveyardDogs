@@ -8,14 +8,14 @@ import { BaseService } from './base.service';
 // import * as _ from 'lodash';
 
 // Add the RxJS Observable operators we need in this app.
-import '../../rxjs-operators';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
+
+
 import { ConfigService } from './utils/config.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserRegistration } from '../models/interfaces/user-registration.interface';
 import { map } from 'rxjs/internal/operators/map';
 import { Authorized } from '../models/entities/Authorized';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 
@@ -42,16 +42,20 @@ export class UserService extends BaseService {
     register(email: string, password: string, firstName: string, lastName: string, location: string): Observable<boolean> {
         const body = JSON.stringify({ email, password, firstName, lastName, location });
 
-        return this.http.post(this.baseUrl + '/accounts', body)
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+
+        return this.http.post(this.baseUrl + '/accounts', body, { headers })
             .pipe(map(res => true));
-            //.catch(this.handleError);
+            // .catch(this.handleError);
     }
 
     login(userName, password) {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         return this.http
             .post(
                 this.baseUrl + '/auth/login',
-                JSON.stringify({ userName, password })
+                JSON.stringify({ userName, password }),
+                { headers }
             )
             .pipe(map((res: Authorized) => res))
             .pipe(map(res => {
@@ -60,7 +64,7 @@ export class UserService extends BaseService {
                 this.authNavStatusSource.next(true);
                 return true;
             }));
-            //.catch(this.handleError);
+            // .catch(this.handleError);
     }
 
     logout() {

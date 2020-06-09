@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace GraveyardDogs_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AuthController : Controller
     {
         private readonly UserManager<CustomUser> _userManager;
@@ -36,8 +36,8 @@ namespace GraveyardDogs_Backend.Controllers
         }
 
             // POST api/auth/login
-        [HttpPost("login")]
-        public async Task<IActionResult> Post([FromBody]CredentialsVm credentials)
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody]CredentialsVm credentials)
         {
             if (!ModelState.IsValid)
             {

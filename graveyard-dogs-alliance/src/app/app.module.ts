@@ -1,57 +1,61 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { appRoutes, appRoutingProviders } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { WarComponent } from './war/war.component';
-import { RosterComponent } from './roster/roster.component';
-import { RaidComponent } from './raid/raid.component';
 import { WelcomeComponent } from './layout/welcome/welcome.component';
 import { LoginComponent } from './account/login/login.component';
 import { MyAccountComponent } from './my-account/my-account.component';
-import { CreateCharacterComponent } from './create-character/create-character.component';
-import { AllCharactersComponent } from './all-characters/all-characters.component';
-import { CharactersViewComponent } from './characters-view/characters-view.component';
-import { CharacterEditComponent } from './character-edit/character-edit.component';
-import { CharacterAddComponent } from './character-add/character-add.component';
-import { TeamAddComponent } from './team-add/team-add.component';
+import { CharactersModule } from './modules/characters/characters.module';
+import { RaidsModule } from './modules/raids/raids.module';
+import { TeamsModule } from './modules/teams/teams.module';
+import { WarModule } from './modules/war/war.module';
+import { RosterModule } from './modules/roster/roster.module';
+import { MaterialModule } from './material.module';
+import { SelectivePreloadingStrategyService } from './services/selective-preloading-strategy.service';
+import { PermissionDeniedComponent } from './permission-denied.component';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SettingsService } from './services/utils/settings.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfigService } from './services/utils/config.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    WarComponent,
-    RosterComponent,
-    RaidComponent,
     WelcomeComponent,
-    LoginComponent,
     MyAccountComponent,
-    CreateCharacterComponent,
-    AllCharactersComponent,
-    CharactersViewComponent,
-    CharacterEditComponent,
-    CharacterAddComponent,
-    TeamAddComponent
+    PermissionDeniedComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    MaterialModule,
+    CharactersModule,
+    RaidsModule,
+    TeamsModule,
+    WarModule,
+    RosterModule,
+    // Routes get loaded in order. It is important that login
+    // come before AppRoutingModule, as
+    // appRoutes defines the catch-all ** route
+    appRoutes,
   ],
-  providers: [],
+  providers: [
+    appRoutingProviders,
+    SettingsService,
+    ConfigService,
+    SelectivePreloadingStrategyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

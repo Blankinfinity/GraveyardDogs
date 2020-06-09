@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CharacterEntity } from '../models/entities/CharacterEntity';
+import { CharacterEntity } from '../../../models/entities/CharacterEntity';
 
 @Component({
   selector: 'app-all-characters',
@@ -12,10 +12,10 @@ export class AllCharactersComponent implements OnInit {
   characters$: Observable<CharacterEntity[]>;
 
   constructor(
-    private baseCharacterService: BaseCharacterService,
-    public authService: AuthService
+    //private baseCharacterService: BaseCharacterService,
+    //public authService: AuthService
   ) {
-    this.characters$ = baseCharacterService.list();
+    //this.characters$ = baseCharacterService.list();
   }
 
   ngOnInit(): void {}

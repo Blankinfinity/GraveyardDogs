@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GraveyardDogs_Backend.Controllers
 {
     [Authorize(Policy = "ApiUser")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CharacterController : Controller
     {
         // GET api/values

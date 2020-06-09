@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GraveyardDogs_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AccountsController : Controller
     {
         private readonly UserManager<CustomUser> _userManager;
